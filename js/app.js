@@ -35,17 +35,24 @@ const switchTab = (id) => {
     document.getElementById("posts").style.display = "grid";
     document.getElementById("liked").style.display = "none";
     document.getElementById("reported").style.display = "none";
+    document.getElementById("questions").style.display = "block";
+    document.getElementById("reported-title").style.display = "none";
+    document.getElementById("liked-title").style.display = "none";
   } else if (id === "liked") {
     document.getElementById("liked").style.display = "block";
+    document.getElementById("liked-title").style.display = "block";
     document.getElementById("posts").style.display = "none";
     document.getElementById("reported").style.display = "none";
-
+    document.getElementById("reported-title").style.display = "none";
+    document.getElementById("liked").textContent = "";
     displayLikedPosts();
   } else {
     document.getElementById("reported").style.display = "block";
+    document.getElementById("reported-title").style.display = "block";
     document.getElementById("posts").style.display = "none";
     document.getElementById("liked").style.display = "none";
-
+    document.getElementById("liked-title").style.display = "none";
+    document.getElementById("reported").innerHTML = "";
     displayReportedPosts();
   }
 };
@@ -144,6 +151,7 @@ const showPosts = (posts) => {
 };
 
 const displayLikedPosts = () => {
+  document.getElementById("questions").style.display = "none";
   const likedPosts = getLikedPosts();
   likedPosts.forEach((post) => {
     const div = createPost(post);
@@ -152,6 +160,7 @@ const displayLikedPosts = () => {
 };
 
 const displayReportedPosts = () => {
+  document.getElementById("questions").style.display = "none";
   const reportedPosts = getReportedPosts();
   reportedPosts.forEach((post) => {
     const div = createPost(post);
@@ -164,5 +173,4 @@ const loadPosts = async () => {
   posts = await data.json();
   showPosts(posts);
 }
-
 loadPosts();
